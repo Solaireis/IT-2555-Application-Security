@@ -3,7 +3,7 @@
 Refer below for the definition of each OWASP category and its potential areas that can be applied in CourseFinity.
 
 ## Table of Contents
-[OWASP Top 10 (Web Application) 2021](#owasp-top-10-2021-web-application)
+OWASP Top 10 (Web Application) 2021
 - [A01:2021 Broken Access Control](#1)
 - [A02:2021 Cryptographic Failures](#2)
 - [A03:2021 Injection](#3)
@@ -17,7 +17,7 @@ Refer below for the definition of each OWASP category and its potential areas th
 
 ---
 
-## OWASP Top 10 2021 Web Application
+## OWASP Top 10 (Web Application) 2021
 
 <p id="1"></p>
 
