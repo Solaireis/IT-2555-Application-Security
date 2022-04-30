@@ -5,7 +5,7 @@ CourseFinity Web Application using Flask
 <br>
 (Requires Python 3.8 and above)
 </h1>
-
+## Forked Project for App Security Group project purposes
 ## Nanyang Polytechnic Y1 App Development Group Project [4 members]
 This project consists of us making a web application using Flask as its framework.
 
