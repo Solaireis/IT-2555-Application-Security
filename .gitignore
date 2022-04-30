@@ -13,3 +13,4 @@ python_files/__pycache__/*.pyc
 static/images/qrcode/*.png
 static/images/user/**
 test.html
+.idea
