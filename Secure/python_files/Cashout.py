@@ -1,13 +1,12 @@
 # Done by Wei Ren
 
 class Cashout():
-    def __init__(self, cashoutID, time, amount, cashoutType, cashoutContact, paypalPayoutBatchID):
+    def __init__(self, cashoutID, time, amount, cashoutType, cashoutContact):
         self.__cashoutID = cashoutID
         self.__time = time
         self.__amount = amount
         self.__cashoutType = cashoutType
         self.__cashoutContact = cashoutContact
-        self.__paypalPayoutBatchID = paypalPayoutBatchID
 
     def get_cashoutID(self):
         return self.__cashoutID
@@ -33,8 +32,3 @@ class Cashout():
         return self.__cashoutContact
     def set_cashoutContact(self, cashoutContact):
         self.__cashoutContact = cashoutContact
-
-    def get_paypalPayoutBatchID(self):
-        return self.__paypalPayoutBatchID
-    def set_paypalPayoutBatchID(self, paypalPayoutBatchID):
-        self.__paypalPayoutBatchID = paypalPayoutBatchID
