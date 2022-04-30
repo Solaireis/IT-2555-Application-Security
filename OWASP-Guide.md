@@ -114,7 +114,7 @@ OWASP Top 10 (Web Application) 2021
          - Allows enumeration attacks to guess which emails or passwords are in use.
      - Dependencies has a known vulnerability.
        - E.g. outdated libraries, outdated frameworks, outdated databases, outdated servers, etc.
-     - Security Key is static and is easily guessable.
+     - Secret Key is static and is easily guessable.
        - Used for the flask web application session.
      - Directory traversal attacks (Directories did not deny by default)
          - Allows users to access files outside of the web application.
