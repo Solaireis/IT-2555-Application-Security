@@ -18,6 +18,8 @@ Jason:
 - Invalidate session after several mins of inactivity
 - Block weak passwords
 
+---
+
 Eden:
 (Broken Access Control)
 - Make a admin only file 
@@ -33,6 +35,8 @@ Eden:
 - Check vulnerabilities in dependencies used
 - Block users from access files outside of the web app
 - Disallow default admin password such as "admin123"
+
+---
 
 Wei Ren:
 (Insecure Design)
@@ -50,6 +54,8 @@ Wei Ren:
 - Ensure logs is not vulnerable to corruption (multithreading :D, SQL injections, etc.)
 - Prevent all access except read access to admins (need to create a log page for admins)
 - Alert the security teams and/or admins in an event of a live attack (DDoS)
+
+---
 
 Calvin:
 (Injection)
