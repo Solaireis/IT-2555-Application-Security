@@ -1,0 +1,248 @@
+{% if accType == "Guest" %}
+{% extends "guest_base.html" %}
+{% elif accType == "Student" or accType == "Teacher"%}
+{% extends "user_base.html" %}
+{% elif accType == "Admin" %}
+{% extends "admin_base.html" %}
+{% endif %}
+
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">{% endblock %}
+{% block title %}Home | CourseFinity{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            {% for category, message in messages %}
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">{{ category }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>{{ message }}</h6>
+            </div>
+            {% endfor %}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Confirm</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endwith %}
+
+<div class="container">
+	<div class="row">
+		<h2>Trending</h2>
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+		{% if trendingCourseLen >= 1 %}
+			{% for course, username in trendingCourseDict.items() %}
+			<div class="col">
+				<div class="card text-dark bg-light h-100">
+					<a href="/course/{{ course.get_courseID() }}"><img src="{{ course.get_thumbnail() }}" class="card-img-top" alt="Course Thumbnail"></a>
+					<div class="card-body">
+						<h5 class="card-title"><a href="/course/{{ course.get_courseID() }}">{{ course.get_shortTitle() }}</a></h5>
+						<a href="/teacher_page/{{ course.get_userID() }}"><small class="text-muted">By {{ username }}</small></a>
+						<p class="card-text">{{ course.get_shortDescription() }}</p>
+						{% if course.get_course_type() == "Video" %}
+						<p class="card-text fw-bold">Video: ${{ course.get_price() }}</p>
+						{% elif course.get_course_type() == "Zoom" %}
+						<p class="card-text fw-bold">Zoom: ${{ course.get_price() }}</p>
+						{% endif %}
+						<div class="ratings">
+							{% with averageCourseRating = course.get_averageRating() %}
+								{% if averageCourseRating == 5 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								{% elif averageCourseRating >= 4 and averageCourseRating < 5 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								{% elif averageCourseRating >= 3 and averageCourseRating < 4 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span> 
+								{% elif averageCourseRating >= 2 and averageCourseRating < 3 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								{% elif averageCourseRating >= 1 and averageCourseRating < 2 %}
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								{% elif averageCourseRating >= 0 and averageCourseRating < 1 %}
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								{% endif %}
+							{% endwith %}
+						</div>
+						<p class="card-text">Views: {{ course.get_views() }}</p>
+					</div>
+					<div class="card-footer">
+						{% if course.get_courseID() in userPurchasedCourses %}
+							<form action="/purchaseview/{{ course.get_courseID() }}" method="POST">
+								<button type="submit" class="btn btn-success float-end"><i class="fas fa-shopping-bag"></i> View Purchase</button>
+							</form>
+						{% else %}
+							{% if accType=="Guest" %}
+							<form action="/login" method="GET">
+								<button type="submit" class="btn btn-success float-end"><i class="fas fa-cart-plus fa-lg"></i> Add to Cart</button>
+							</form>
+							{% elif accType=="Admin" %}
+							<button type="button" class="btn btn-success float-end">Admin cannot add to cart!</button>
+							{% else %}
+							<form action="/add_to_cart/{{ course.get_courseID() }}" method="POST">
+								<button type="submit" class="btn btn-success float-end"><i class="fas fa-cart-plus fa-lg"></i> Add to Cart</button>
+							</form>
+							{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+			<div class="col">
+				<div class="card text-dark bg-light h-100">
+					<img src="{{ url_for('static', filename='images/courses/placeholder.webp') }}" class="card-img-top" alt="Course Thumbnail">
+					<div class="card-body">
+						<h4 class="card-title">No Course Available</h4>
+						<p class="card-text">Sorry, there are currently no courses available.</p>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<h2 id="recommendations">Recommendations</h2>
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+		{% if recommendCourseLen >= 1 %}
+			{% for course, username in recommendCourseDict.items() %}
+			<div class="col">
+				<div class="card text-dark bg-light h-100">
+					<a href="/course/{{ course.get_courseID() }}"><img src="{{ course.get_thumbnail() }}" class="card-img-top" alt="Course Thumbnail"></a> 
+					<div class="card-body">
+						<h5 class="card-title"><a href="/course/{{ course.get_courseID() }}">{{ course.get_shortTitle() }}</a></h5>
+						<a href="/teacher_page/{{ course.get_userID() }}"><small class="text-muted">By {{ username }}</small></a>
+						<p class="card-text">{{ course.get_shortDescription() }}</p>
+						{% if course.get_course_type() == "Video" %}
+						<p class="card-text fw-bold">Video: ${{ course.get_price() }}</p>
+						{% elif course.get_course_type() == "Zoom" %}
+						<p class="card-text fw-bold">Zoom: ${{ course.get_price() }}</p>
+						{% endif %}
+						<div class="ratings">
+							{% with averageCourseRating = course.get_averageRating() %}
+								{% if averageCourseRating == 5 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								{% elif averageCourseRating >= 4 and averageCourseRating < 5 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								{% elif averageCourseRating >= 3 and averageCourseRating < 4 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span> 
+								{% elif averageCourseRating >= 2 and averageCourseRating < 3 %}
+								<span class="fas fa-star"></span>
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								{% elif averageCourseRating >= 1 and averageCourseRating < 2 %}
+								<span class="fas fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								{% elif averageCourseRating >= 0 and averageCourseRating < 1 %}
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								<span class="far fa-star"></span>
+								{% endif %}
+							{% endwith %}
+						</div>
+						<p class="card-text">Views: {{ course.get_views() }}</p>
+					</div>
+					<div class="card-footer">
+						{% if accType=="Guest" %}
+						<form action="/login" method="GET">
+							<button type="submit" class="btn btn-success float-end"><i class="fas fa-cart-plus fa-lg"></i> Add to Cart</button>
+						</form>
+						{% elif accType=="Admin" %}
+						<button type="button" class="btn btn-success float-end">Admin cannot add to cart!</button>
+						{% else %}
+						<form action="/add_to_cart/{{ course.get_courseID() }}" method="POST">
+							<button type="submit" class="btn btn-success float-end"><i class="fas fa-cart-plus fa-lg"></i> Add to Cart</button>
+						</form>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		{% else %}
+		<div class="col">
+			<div class="card text-dark bg-light h-100">
+				<img src="{{ url_for('static', filename='images/courses/placeholder.webp') }}" class="card-img-top" alt="Course Thumbnail">
+				<div class="card-body">
+					<h4 class="card-title">No Course Available</h4>
+					<p class="card-text">Sorry, there are currently no courses available.</p>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		</div>
+	</div>
+	{% if accType == "Guest" %}
+	<div class="row become_headings">
+		<div class="col-md">
+			<img src="{{ url_for('static', filename='images/home/home_teacher_banner.webp') }}" alt="Become a Teacher Promo Image" class="thumbnails rounded">
+		</div>
+		<div class="col-md text-center">
+			<h2>Become A Teacher Today!</h2>
+			<p>We provide the platform for you to teach what you love.<br>For the first 90 days, you will earn 100% of your monthly earnings instead of the usual 75% due to the 25% commission!</p>
+			<form action="/teacher_signup" method="GET">
+				<button type="submit" class="btn btn-primary btn-lg">Start Teaching Today</button>
+			</form>
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<script>
+			var alertModal = new bootstrap.Modal(document.getElementById("alertModal"), {});
+			alertModal.show();
+		</script>
+		{% endif %}
+	{% endwith %}
+{% endblock %}

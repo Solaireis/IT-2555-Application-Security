@@ -1,0 +1,136 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+	<div class="container-fluid navbar_margin">
+		<a id="logo" href="/"><img src="{{ url_for('static', filename='images/common/logo.png') }}" alt="CourseFinity Logo"></a>
+		</a>
+		<input type="checkbox" id="check" data-bs-toggle="collapse" data-bs-target="#navbar-content"  aria-expanded="false" aria-label="Toggle navigation">
+		<label for="check" id="nav-icon">
+			<span></span>
+			<span></span>
+			<span></span>
+		</label>
+		<div class="collapse navbar-collapse" id="navbar-content">
+			<ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-white" href="#" onclick="return false;" data-bs-toggle="dropdown" data-bs-auto-close="outside">Explore Categories!</a>
+					<ul class="dropdown-menu shadow">
+						<li class="dropend">
+							<a href="#" onclick="return false;" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Development</a>
+							<ul class="dropdown-menu shadow">
+								<li>
+									<a class="dropdown-item" href="/explore/Programming/1"> Programming</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Web_Development/1"> Web Development</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Game_Development/1"> Game Development</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Mobile_App_Development/1"> Mobile App Development</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Software_Development/1"> Software Development</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Other_Development/1"> Other Development</a>
+								</li>
+							</ul>
+						</li>
+                        <li class="dropend">
+							<a href="#" onclick="return false;" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Business</a>
+							<ul class="dropdown-menu shadow">
+								<li>
+									<a class="dropdown-item" href="/explore/Entrepreneurship/1"> Entrepreneurship</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Project_Management/1"> Project Management</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/BI_Analytics/1"> Business Intelligence & Analytics</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Business_Strategy/1"> Business Strategy</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Other_Business/1"> Other Business</a>
+								</li>
+							</ul>
+						</li>
+                        <li class="dropend">
+							<a href="#" onclick="return false;" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Design</a>
+							<ul class="dropdown-menu shadow">
+								<li>
+									<a class="dropdown-item" href="/explore/3D_Modelling/1"> 3D Modelling</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Animation/1"> Animation</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/UX_Design/1"> UX Design</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Design_Tools/1"> Design Tools</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Other_Design/1"> Other Design</a>
+								</li>
+							</ul>
+						</li>
+                        <li class="dropend">
+							<a href="#" onclick="return false;" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Photography/Videography</a>
+							<ul class="dropdown-menu shadow">
+								<li>
+									<a class="dropdown-item" href="/explore/Digital_Photography/1"> Digital Photography</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Photography_Tools/1"> Photography Tools</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Video_Production/1"> Video Production</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Video_Design_Tools/1"> Video Design Tools</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Other_Photography_Videography/1"> Other Photography/Videography</a>
+								</li>
+							</ul>
+						</li>
+                        <li class="dropend">
+							<a href="#" onclick="return false;" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Academics</a>
+							<ul class="dropdown-menu shadow">
+								<li>
+									<a class="dropdown-item" href="/explore/Science/1"> Science</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Math/1"> Math</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Language/1"> Language</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Test_Prep/1"> Test Prep</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/explore/Other_Academics/1"> Other Academics</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+            </ul>
+			<form action="/search/1/" method="GET" class="d-flex ms-auto me-auto search_form">
+				<div class="input-group">
+					<input class="form-control border-0 mr-2" type="search" placeholder="Search" name="q" aria-label="Search" required>
+					<button class="btn btn-secondary border-0" type="submit"><i class="fas fa-search"></i></button>
+				</div>
+			</form>
+			<div class="d-flex">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link text-white" href="/login">Login</a></li>
+					<li class="nav-item"><a class="nav-link text-white" href="/signup">Sign Up</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
