@@ -47,7 +47,9 @@ def home():
     """Home page"""
     return render_template("users/general/home.html")
 
-
+@app.route("/course-page/<string:courseID>")
+def coursePage()
+    return render_template("users/general/coursepage.html
 """Custom Error Pages"""
 
 # Bad Request
